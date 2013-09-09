@@ -11,10 +11,31 @@
 
 @interface ZGViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *navigationSubtitle;
-
 @end
 
 @implementation ZGViewController
+
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self customLooks];
+    }
+    return self;
+}
+
+- (void)customLooks{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+            [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+            [[UIBarButtonItem appearance] setTintColor:[UIColor colorWithWhite:.6 alpha:0.4]];
+        } else {
+            [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+        }
+        [[ZGNavigationTitleView appearance] setNavigationBarTitleFontColor:[UIColor blackColor]];
+        [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFontColor:[UIColor colorWithWhite:0.3 alpha:1]];
+    });
+}
 
 - (void)viewDidLoad
 {
@@ -30,6 +51,11 @@
 
 - (IBAction)updateSubtitle:(id)sender {
     [(ZGNavigationBarTitleViewController *)self.navigationController updateSubtitleTo:self.navigationSubtitle.text];
+}
+
+- (IBAction)clear:(id)sender {
+    self.navigationSubtitle.text = @"";
+    [(ZGNavigationBarTitleViewController *)self.navigationController updateSubtitleTo:nil];
 }
 
 - (IBAction)nextViewController:(id)sender {
