@@ -7,8 +7,10 @@
 //
 
 #import "ZGViewController.h"
+#import "ZGNavigationBarTitleViewController.h"
 
 @interface ZGViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *navigationSubtitle;
 
 @end
 
@@ -24,6 +26,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)updateSubtitle:(id)sender {
+    [(ZGNavigationBarTitleViewController *)self.navigationController updateSubtitleTo:self.navigationSubtitle.text];
+}
+
+- (IBAction)nextViewController:(id)sender {
+    [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"ZGViewController"] animated:YES];
 }
 
 @end

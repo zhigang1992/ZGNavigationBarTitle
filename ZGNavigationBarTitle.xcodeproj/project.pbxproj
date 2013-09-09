@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04393BCD17DCCA15008709E1 /* ZGNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04393BCC17DCCA15008709E1 /* ZGNavigationTitleView.m */; };
+		04B4CE1917DD5F7B00ACB755 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B4CE1817DD5F7B00ACB755 /* QuartzCore.framework */; };
 		04EEC07017DCBFC200F12110 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EEC06F17DCBFC200F12110 /* UIKit.framework */; };
 		04EEC07217DCBFC200F12110 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EEC07117DCBFC200F12110 /* Foundation.framework */; };
 		04EEC07417DCBFC200F12110 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04EEC07317DCBFC200F12110 /* CoreGraphics.framework */; };
@@ -18,9 +20,13 @@
 		04EEC08617DCBFC200F12110 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04EEC08517DCBFC200F12110 /* Default-568h@2x.png */; };
 		04EEC08917DCBFC200F12110 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04EEC08717DCBFC200F12110 /* MainStoryboard.storyboard */; };
 		04EEC08C17DCBFC200F12110 /* ZGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EEC08B17DCBFC200F12110 /* ZGViewController.m */; };
+		04EEC09417DCC00700F12110 /* ZGNavigationBarTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EEC09317DCC00700F12110 /* ZGNavigationBarTitleViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04393BCB17DCCA15008709E1 /* ZGNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGNavigationTitleView.h; sourceTree = "<group>"; };
+		04393BCC17DCCA15008709E1 /* ZGNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGNavigationTitleView.m; sourceTree = "<group>"; };
+		04B4CE1817DD5F7B00ACB755 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		04EEC06C17DCBFC200F12110 /* ZGNavigationBarTitle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZGNavigationBarTitle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04EEC06F17DCBFC200F12110 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		04EEC07117DCBFC200F12110 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -37,6 +43,8 @@
 		04EEC08817DCBFC200F12110 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		04EEC08A17DCBFC200F12110 /* ZGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZGViewController.h; sourceTree = "<group>"; };
 		04EEC08B17DCBFC200F12110 /* ZGViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZGViewController.m; sourceTree = "<group>"; };
+		04EEC09217DCC00700F12110 /* ZGNavigationBarTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZGNavigationBarTitleViewController.h; sourceTree = "<group>"; };
+		04EEC09317DCC00700F12110 /* ZGNavigationBarTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZGNavigationBarTitleViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B4CE1917DD5F7B00ACB755 /* QuartzCore.framework in Frameworks */,
 				04EEC07017DCBFC200F12110 /* UIKit.framework in Frameworks */,
 				04EEC07217DCBFC200F12110 /* Foundation.framework in Frameworks */,
 				04EEC07417DCBFC200F12110 /* CoreGraphics.framework in Frameworks */,
@@ -86,6 +95,10 @@
 				04EEC07E17DCBFC200F12110 /* ZGAppDelegate.h */,
 				04EEC07F17DCBFC200F12110 /* ZGAppDelegate.m */,
 				04EEC08717DCBFC200F12110 /* MainStoryboard.storyboard */,
+				04EEC09217DCC00700F12110 /* ZGNavigationBarTitleViewController.h */,
+				04EEC09317DCC00700F12110 /* ZGNavigationBarTitleViewController.m */,
+				04393BCB17DCCA15008709E1 /* ZGNavigationTitleView.h */,
+				04393BCC17DCCA15008709E1 /* ZGNavigationTitleView.m */,
 				04EEC08A17DCBFC200F12110 /* ZGViewController.h */,
 				04EEC08B17DCBFC200F12110 /* ZGViewController.m */,
 				04EEC07617DCBFC200F12110 /* Supporting Files */,
@@ -96,6 +109,7 @@
 		04EEC07617DCBFC200F12110 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				04B4CE1817DD5F7B00ACB755 /* QuartzCore.framework */,
 				04EEC07717DCBFC200F12110 /* ZGNavigationBarTitle-Info.plist */,
 				04EEC07817DCBFC200F12110 /* InfoPlist.strings */,
 				04EEC07B17DCBFC200F12110 /* main.m */,
@@ -177,6 +191,8 @@
 				04EEC07C17DCBFC200F12110 /* main.m in Sources */,
 				04EEC08017DCBFC200F12110 /* ZGAppDelegate.m in Sources */,
 				04EEC08C17DCBFC200F12110 /* ZGViewController.m in Sources */,
+				04EEC09417DCC00700F12110 /* ZGNavigationBarTitleViewController.m in Sources */,
+				04393BCD17DCCA15008709E1 /* ZGNavigationTitleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +315,7 @@
 				04EEC09117DCBFC200F12110 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
