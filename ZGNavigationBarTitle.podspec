@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version      = "0.0.1"
   s.summary      = "**ZGNavigationBarTitle** is navigationBar Subtitle thing, inspired by the [Reeder for iOS](http://reederapp.com/iphone/)."
   s.homepage     = "https://github.com/zhigang1992/ZGNavigationBarTitle"
-  s.license      = { :type => 'MIT' }
+  s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Zhigang Fang" => "zhigang1992@gmail.com" }
   s.source       = { :git => "https://github.com/zhigang1992/ZGNavigationBarTitle.git", :tag => "0.0.1" }
   s.platform     = :ios, '5.0'
