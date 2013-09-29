@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZGNavigationTitleView.h"
+
+@interface UIViewController (ZGNavigationSubTitle)
+@property (nonatomic, copy) NSString *subtitle;
+@property (nonatomic, copy) NSString *title;
+@end
 
 @interface ZGNavigationBarTitleViewController : UINavigationController
-- (void)updateSubtitleTo:(NSString *)subtitle;
 @end

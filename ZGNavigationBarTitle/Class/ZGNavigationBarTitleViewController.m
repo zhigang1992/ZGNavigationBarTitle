@@ -7,8 +7,57 @@
 //
 
 #import "ZGNavigationBarTitleViewController.h"
+#import "ZGNavigationTitleView.h"
+#import <objc/runtime.h>
 
-@interface ZGNavigationBarTitleViewController ()
+static char UIViewControllerTitleKey;
+static char UIViewControllerSubtitleKey;
+
+@implementation UIViewController (ZGNavigationSubTitle)
+@dynamic title;
+@dynamic subtitle;
+
+- (NSString *)title
+{
+    return objc_getAssociatedObject(self, &UIViewControllerTitleKey);
+}
+
+- (void)setTitle:(NSString *)title
+{
+    [self willChangeValueForKey:@"title"];
+    objc_setAssociatedObject(self, &UIViewControllerTitleKey, title, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    [self didChangeValueForKey:@"title"];
+    [self updateTitleTo:title];
+    self.navigationItem.title = title;
+}
+
+- (NSString *)subtitle
+{
+    return objc_getAssociatedObject(self, &UIViewControllerSubtitleKey);
+}
+
+- (void)setSubtitle:(NSString *)subtitle
+{
+    [self willChangeValueForKey:@"subtitle"];
+    objc_setAssociatedObject(self, &UIViewControllerSubtitleKey, subtitle, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    [self didChangeValueForKey:@"subtitle"];
+    [self updateSubtitleTo:subtitle];
+}
+
+- (void)updateTitleTo:(NSString *)title
+{
+    if ([self.navigationItem.titleView isKindOfClass:[ZGNavigationTitleView class]]) {
+        [(ZGNavigationTitleView *) self.navigationItem.titleView setNavigationBarTitle:title];
+    }
+}
+
+- (void)updateSubtitleTo:(NSString *)subtitle
+{
+    if ([self.navigationItem.titleView isKindOfClass:[ZGNavigationTitleView class]]) {
+        [(ZGNavigationTitleView *) self.navigationItem.titleView setNavigationBarSubtitle:subtitle];
+    }
+}
+
 @end
 
 @implementation ZGNavigationBarTitleViewController
@@ -16,12 +65,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    if (!self.topViewController.navigationItem.titleView) {
-        ZGNavigationTitleView *titleView = [[ZGNavigationTitleView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
-        titleView.navigationBarTitle = self.topViewController.title.length ? self.topViewController.title : self.topViewController.navigationItem.title;
-        self.topViewController.navigationItem.titleView = titleView;
-    }
+    // Do any additional setup after loading the view.
+    [self addTitleViewToViewController:self.topViewController];
 }
 
 - (void)didReceiveMemoryWarning
@@ -30,18 +75,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    if (!viewController.navigationItem.titleView) {
-        ZGNavigationTitleView *titleView = [[ZGNavigationTitleView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
-        titleView.navigationBarTitle = viewController.title.length ? viewController.title : viewController.navigationItem.title;
-        viewController.navigationItem.titleView = titleView;
-    }
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [self addTitleViewToViewController:viewController];
     [super pushViewController:viewController animated:animated];
 }
 
-- (void)updateSubtitleTo:(NSString *)subtitle{
-    if ([self.visibleViewController.navigationItem.titleView isKindOfClass:[ZGNavigationTitleView class]]) {
-        [(ZGNavigationTitleView *)self.visibleViewController.navigationItem.titleView setNavigationBarSubtitle:subtitle];
+- (void)addTitleViewToViewController:(UIViewController *)viewController
+{
+    if (!viewController.navigationItem.titleView) {
+        ZGNavigationTitleView *titleView = [[ZGNavigationTitleView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+        viewController.navigationItem.titleView = titleView;
+        viewController.title = viewController.title.length ? viewController.title : viewController.navigationItem.title;
     }
 }
 

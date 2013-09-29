@@ -15,32 +15,16 @@
 
 @implementation ZGViewController
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self customLooks];
-    }
-    return self;
-}
-
-- (void)customLooks{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-            [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-            [[UIBarButtonItem appearance] setTintColor:[UIColor colorWithWhite:.6 alpha:0.4]];
-        } else {
-            [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-        }
-        [[ZGNavigationTitleView appearance] setNavigationBarTitleFontColor:[UIColor blackColor]];
-        [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFontColor:[UIColor colorWithWhite:0.3 alpha:1]];
-    });
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    // Do any additional setup after loading the view, typically from a nib.
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t) (delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
+    {
+        self.title = @"World";
+    });
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,16 +33,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)updateSubtitle:(id)sender {
-    [(ZGNavigationBarTitleViewController *)self.navigationController updateSubtitleTo:self.navigationSubtitle.text];
+- (IBAction)updateSubtitle:(id)sender
+{
+    self.subtitle = self.navigationSubtitle.text;
 }
 
-- (IBAction)clear:(id)sender {
+- (IBAction)clear:(id)sender
+{
     self.navigationSubtitle.text = @"";
-    [(ZGNavigationBarTitleViewController *)self.navigationController updateSubtitleTo:nil];
+    self.subtitle = nil;
 }
 
-- (IBAction)nextViewController:(id)sender {
+- (IBAction)nextViewController:(id)sender
+{
     [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"ZGViewController"] animated:YES];
 }
 

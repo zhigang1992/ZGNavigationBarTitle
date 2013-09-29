@@ -11,6 +11,8 @@
 @interface ZGNavigationTitleView : UIView
 @property (nonatomic, copy) NSString *navigationBarTitle;
 @property (nonatomic, copy) NSString *navigationBarSubtitle;
-@property (nonatomic, copy) UIColor *navigationBarTitleFontColor; UI_APPEARANCE_SELECTOR;
-@property (nonatomic, copy) UIColor *navigationBarSubtitleFontColor; UI_APPEARANCE_SELECTOR;
+@property (nonatomic, copy) UIColor *navigationBarTitleFontColor;
+UI_APPEARANCE_SELECTOR;
+@property (nonatomic, copy) UIColor *navigationBarSubtitleFontColor;
+UI_APPEARANCE_SELECTOR;
 @end

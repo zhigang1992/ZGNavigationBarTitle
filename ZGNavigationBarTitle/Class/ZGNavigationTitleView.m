@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Kyle Fang. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "ZGNavigationTitleView.h"
 
 @protocol ZGNavigationTitleContentViewDelegate <NSObject>
@@ -18,20 +17,22 @@
 @end
 
 @implementation ZGNavigationTitleContentView
-- (void)drawRect:(CGRect)rect{
+- (void)drawRect:(CGRect)rect
+{
     if ([self.delegate respondsToSelector:@selector(drawContent:)]) {
         [self.delegate drawContent:rect];
     }
 }
 @end
 
-@interface ZGNavigationTitleView() <ZGNavigationTitleContentViewDelegate>
+@interface ZGNavigationTitleView () <ZGNavigationTitleContentViewDelegate>
 @property (nonatomic, strong) ZGNavigationTitleContentView *contentView;
 @end
 
 @implementation ZGNavigationTitleView
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self setupContentView];
@@ -39,7 +40,8 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame{
+- (id)initWithFrame:(CGRect)frame
+{
     self = [super initWithFrame:frame];
     if (self) {
         [self setupContentView];
@@ -47,7 +49,8 @@
     return self;
 }
 
-- (void)setupContentView{
+- (void)setupContentView
+{
     self.contentView = [[ZGNavigationTitleContentView alloc] initWithFrame:self.frame];
     self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.contentView.delegate = self;
@@ -57,14 +60,16 @@
     self.clipsToBounds = YES;
 }
 
-- (void)setNavigationBarTitle:(NSString *)navigationBarTitle{
+- (void)setNavigationBarTitle:(NSString *)navigationBarTitle
+{
     if (![_navigationBarTitle isEqualToString:navigationBarTitle]) {
         _navigationBarTitle = navigationBarTitle;
         [self.contentView setNeedsDisplay];
     }
 }
 
-- (void)setNavigationBarSubtitle:(NSString *)navigationBarSubtitle{
+- (void)setNavigationBarSubtitle:(NSString *)navigationBarSubtitle
+{
     if (![_navigationBarSubtitle isEqualToString:navigationBarSubtitle]) {
         if (navigationBarSubtitle.length && !_navigationBarSubtitle.length) {
             CATransition *transition = [CATransition animation];
@@ -72,15 +77,16 @@
             transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
             transition.type = kCATransitionPush;
             transition.subtype = kCATransitionFromTop;
-            [transition setValue:(id)kCFBooleanFalse forKey:kCATransitionFade];
+            [transition setValue:(id) kCFBooleanFalse forKey:kCATransitionFade];
             [self.contentView.layer addAnimation:transition forKey:nil];
-        } else if (!navigationBarSubtitle.length && _navigationBarSubtitle.length) {
+        }
+        else if (!navigationBarSubtitle.length && _navigationBarSubtitle.length) {
             CATransition *transition = [CATransition animation];
             transition.duration = 0.4f;
             transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
             transition.type = kCATransitionPush;
             transition.subtype = kCATransitionFromBottom;
-            [transition setValue:(id)kCFBooleanFalse forKey:kCATransitionFade];
+            [transition setValue:(id) kCFBooleanFalse forKey:kCATransitionFade];
             [self.contentView.layer addAnimation:transition forKey:nil];
         }
         _navigationBarSubtitle = navigationBarSubtitle;
@@ -90,7 +96,8 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawContent:(CGRect)rect{
+- (void)drawContent:(CGRect)rect
+{
     // Drawing code
     if (self.navigationBarSubtitle.length) {
         CGRect titleRect = rect;
@@ -103,9 +110,10 @@
         subtitleRect.size.height = rect.size.height - 24;
         [self.navigationBarSubtitleFontColor setFill];
         [self.navigationBarSubtitle drawInRect:subtitleRect withFont:[UIFont boldSystemFontOfSize:13] lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentCenter];
-    } else {
+    }
+    else {
         CGRect titleRect = rect;
-        titleRect.origin.y = (rect.size.height - 24.f) /2.f;
+        titleRect.origin.y = (rect.size.height - 24.f) / 2.f;
         titleRect.size.height = 24.f;
         [self.navigationBarTitleFontColor setFill];
         [self.navigationBarTitle drawInRect:titleRect withFont:[UIFont boldSystemFontOfSize:20] lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentCenter];
