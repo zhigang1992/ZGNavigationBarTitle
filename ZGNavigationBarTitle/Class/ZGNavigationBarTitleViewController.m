@@ -84,7 +84,8 @@ static char UIViewControllerSubtitleKey;
 - (void)addTitleViewToViewController:(UIViewController *)viewController
 {
     if (!viewController.navigationItem.titleView) {
-        ZGNavigationTitleView *titleView = [[ZGNavigationTitleView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+        CGFloat width = 0.95 * self.view.frame.size.width;
+        ZGNavigationTitleView *titleView = [[ZGNavigationTitleView alloc] initWithFrame:CGRectMake(0, 0, width, 44)];
         viewController.navigationItem.titleView = titleView;
         viewController.title = viewController.title.length ? viewController.title : viewController.navigationItem.title;
     }
