@@ -98,25 +98,43 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawContent:(CGRect)rect
 {
+    // Default paragraph style
+    NSMutableParagraphStyle *paragraphStyle     = NSMutableParagraphStyle.new;
+    NSMutableDictionary     *subtitleAttributes = NSMutableDictionary.dictionary;
+    NSMutableDictionary     *titleAttributes    = NSMutableDictionary.dictionary;
+    
+    [paragraphStyle setAlignment:NSTextAlignmentCenter];
+    
     // Drawing code
     if (self.navigationBarSubtitle.length) {
+        
+        [titleAttributes setValue:[UIFont boldSystemFontOfSize:17]      forKey:NSFontAttributeName];
+        [titleAttributes setValue:paragraphStyle                        forKey:NSParagraphStyleAttributeName];
+        
+        [subtitleAttributes setValue:[UIFont boldSystemFontOfSize:13]   forKey:NSFontAttributeName];
+        [subtitleAttributes setValue:paragraphStyle                     forKey:NSParagraphStyleAttributeName];
+        
         CGRect titleRect = rect;
         titleRect.origin.y = 4;
         titleRect.size.height = 20;
         [self.navigationBarTitleFontColor setFill];
-        [self.navigationBarTitle drawInRect:titleRect withFont:[UIFont boldSystemFontOfSize:17] lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentCenter];
+        [self.navigationBarTitle drawInRect:titleRect withAttributes:titleAttributes];
         CGRect subtitleRect = rect;
         subtitleRect.origin.y = 24;
         subtitleRect.size.height = rect.size.height - 24;
         [self.navigationBarSubtitleFontColor setFill];
-        [self.navigationBarSubtitle drawInRect:subtitleRect withFont:[UIFont boldSystemFontOfSize:13] lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentCenter];
+        [self.navigationBarSubtitle drawInRect:subtitleRect withAttributes:subtitleAttributes];
     }
     else {
+        
+        [titleAttributes setValue:[UIFont boldSystemFontOfSize:20] forKey:NSFontAttributeName];
+        [titleAttributes setValue:paragraphStyle                   forKey:NSParagraphStyleAttributeName];
+        
         CGRect titleRect = rect;
         titleRect.origin.y = (rect.size.height - 24.f) / 2.f;
         titleRect.size.height = 24.f;
         [self.navigationBarTitleFontColor setFill];
-        [self.navigationBarTitle drawInRect:titleRect withFont:[UIFont boldSystemFontOfSize:20] lineBreakMode:NSLineBreakByTruncatingTail alignment:NSTextAlignmentCenter];
+        [self.navigationBarTitle drawInRect:titleRect withAttributes:titleAttributes];
     }
 }
 
