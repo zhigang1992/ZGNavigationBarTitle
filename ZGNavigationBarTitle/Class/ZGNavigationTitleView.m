@@ -94,47 +94,62 @@
     }
 }
 
+- (float)offsetXTitleWithSubtitle:(BOOL)subtitle inRect:(CGRect)rect
+{
+	float finalCenter = (self.superview.frame.size.width / 2) - (self.frame.origin.x + rect.size.width / 2);
+	UILabel *label = [[UILabel alloc] init];
+	label.text = self.navigationBarTitle;
+	label.font = subtitle ? self.navigationBarTitleFontInSubtitleMode : self.navigationBarTitleFont;
+	[label sizeToFit];
+	
+	float spaceLeft = (rect.size.width + finalCenter) - label.frame.size.width;
+	if (spaceLeft < (fabsf(finalCenter))) {
+		finalCenter = spaceLeft - fabsf(finalCenter);
+	}
+	return finalCenter;
+}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawContent:(CGRect)rect
 {
-    // Default paragraph style
-    NSMutableParagraphStyle *paragraphStyle     = NSMutableParagraphStyle.new;
-    NSMutableDictionary     *subtitleAttributes = NSMutableDictionary.dictionary;
-    NSMutableDictionary     *titleAttributes    = NSMutableDictionary.dictionary;
-    
-    [paragraphStyle setAlignment:NSTextAlignmentCenter];
-    
+	NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+	paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+	paragraphStyle.alignment = NSTextAlignmentCenter;
+	
     // Drawing code
     if (self.navigationBarSubtitle.length) {
-        
-        [titleAttributes setValue:[UIFont boldSystemFontOfSize:17]      forKey:NSFontAttributeName];
-        [titleAttributes setValue:paragraphStyle                        forKey:NSParagraphStyleAttributeName];
-        
-        [subtitleAttributes setValue:[UIFont boldSystemFontOfSize:13]   forKey:NSFontAttributeName];
-        [subtitleAttributes setValue:paragraphStyle                     forKey:NSParagraphStyleAttributeName];
-        
         CGRect titleRect = rect;
         titleRect.origin.y = 4;
+		titleRect.origin.x = [self offsetXTitleWithSubtitle:YES inRect:rect];
         titleRect.size.height = 20;
         [self.navigationBarTitleFontColor setFill];
-        [self.navigationBarTitle drawInRect:titleRect withAttributes:titleAttributes];
+		[self.navigationBarTitle drawInRect:titleRect withAttributes:@{
+																	  NSForegroundColorAttributeName: self.navigationBarTitleFontColor,
+																	  NSFontAttributeName: self.navigationBarTitleFontInSubtitleMode,
+																	  NSParagraphStyleAttributeName: paragraphStyle}];
+		
         CGRect subtitleRect = rect;
         subtitleRect.origin.y = 24;
         subtitleRect.size.height = rect.size.height - 24;
+		subtitleRect.origin.x = [self offsetXTitleWithSubtitle:YES inRect:rect];
         [self.navigationBarSubtitleFontColor setFill];
-        [self.navigationBarSubtitle drawInRect:subtitleRect withAttributes:subtitleAttributes];
+		[self.navigationBarSubtitle drawInRect:subtitleRect withAttributes:@{
+																		  NSForegroundColorAttributeName: self.navigationBarSubtitleFontColor,
+																		  NSFontAttributeName: self.navigationBarSubtitleFont,
+																		  NSParagraphStyleAttributeName: paragraphStyle}];
+
     }
     else {
-        
-        [titleAttributes setValue:[UIFont boldSystemFontOfSize:20] forKey:NSFontAttributeName];
-        [titleAttributes setValue:paragraphStyle                   forKey:NSParagraphStyleAttributeName];
-        
         CGRect titleRect = rect;
         titleRect.origin.y = (rect.size.height - 24.f) / 2.f;
         titleRect.size.height = 24.f;
+		titleRect.origin.x = [self offsetXTitleWithSubtitle:NO inRect:rect];;
         [self.navigationBarTitleFontColor setFill];
-        [self.navigationBarTitle drawInRect:titleRect withAttributes:titleAttributes];
+		[self.navigationBarTitle drawInRect:titleRect withAttributes:@{
+																	   NSForegroundColorAttributeName: self.navigationBarTitleFontColor,
+																	   NSFontAttributeName: self.navigationBarTitleFont,
+																	   NSParagraphStyleAttributeName: paragraphStyle}];
     }
 }
 
