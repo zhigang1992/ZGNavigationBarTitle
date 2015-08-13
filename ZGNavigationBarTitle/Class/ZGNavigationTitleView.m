@@ -103,8 +103,13 @@
 	[label sizeToFit];
 	
 	float spaceLeft = (rect.size.width + finalCenter) - label.frame.size.width;
-	if (spaceLeft < (fabsf(finalCenter))) {
+	
+	if (spaceLeft < 0) {
+		finalCenter = 0;
+	}
+	else if (spaceLeft < (fabsf(finalCenter))) {
 		finalCenter = spaceLeft - fabsf(finalCenter);
+		finalCenter = finalCenter < 0 ? 0 : finalCenter;
 	}
 	return finalCenter;
 }
