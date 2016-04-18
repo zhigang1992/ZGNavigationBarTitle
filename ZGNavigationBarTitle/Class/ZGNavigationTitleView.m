@@ -31,6 +31,19 @@
 
 @implementation ZGNavigationTitleView
 
++ (void)initialize {
+    if (self != [ZGNavigationTitleView class]) {
+        return;
+    }
+    
+    [[ZGNavigationTitleView appearance] setNavigationBarTitleFontColor:[UIColor blackColor]];
+    [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFontColor:[UIColor colorWithWhite:0.3 alpha:1]];
+    
+    [[ZGNavigationTitleView appearance] setNavigationBarTitleFont:[UIFont systemFontOfSize:17]];
+    [[ZGNavigationTitleView appearance] setNavigationBarTitleFontInSubtitleMode:[UIFont systemFontOfSize:15]];
+    [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFont:[UIFont systemFontOfSize:12]];
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];

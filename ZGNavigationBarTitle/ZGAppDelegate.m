@@ -21,9 +21,6 @@
     else {
         [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
     }
-    [[ZGNavigationTitleView appearance] setNavigationBarTitleFontColor:[UIColor blackColor]];
-    [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFontColor:[UIColor colorWithWhite:0.3 alpha:1]];
-
     return YES;
 }
 
